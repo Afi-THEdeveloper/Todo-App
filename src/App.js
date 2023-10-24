@@ -5,6 +5,9 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
   const [done, setDone] = useState([]);
+  const date=new Date()
+  const day=date.getDay()//returning order no.of day in the week
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   return (
     <div className="app">
       <div className="mainHeading">
@@ -12,7 +15,7 @@ function App() {
       </div>
       <div className="subHeading">
         <br />
-        <h2>Whoop, it's Wednesday 🌝 ☕ </h2>
+        <h2>Whoop, it's {dayNames[day]} 🌝 ☕ </h2>
       </div>
 
       <div className="input">
