@@ -4,6 +4,7 @@ import "./App.css";
 function App() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
+  const [done, setDone] = useState([]);
   return (
     <div className="app">
       <div className="mainHeading">
@@ -23,7 +24,7 @@ function App() {
         />
         <i
           onClick={() => {
-            setTodos([...todos, { id: Date.now(), text: todo, status: false }]);
+            setTodos([...todos, { id: Date.now(), text: todo }]);
             console.log(todos);
           }}
           className="fas fa-plus"
@@ -38,14 +39,8 @@ function App() {
                 <input
                   onChange={(e) => {
                     console.log(e.target.checked);
-                    setTodos(
-                      todos.filter((object) => {
-                        if (object.id === obj.id) {
-                          object.status = e.target.checked;
-                        }
-                        return object;
-                      })
-                    );
+                    setDone([...done, { id: obj.id, text: obj.text }]);
+                    setTodos(todos.filter((item) => item.id !== obj.id));
                   }}
                   value={obj.status}
                   type="checkbox"
@@ -65,28 +60,25 @@ function App() {
             </div>
           );
         })}
-        <div  className="jobdone">
+        <div className="jobdone">
           <h4>completed jobs</h4>
-          {todos.map((item, index) => {
-            if (item.status) {
-              return <h6 key={index}>- {item.text}</h6>;
-            }
-            return null;
+          {done.map((item, index) => {
+            return <h6 key={index}>- {item.text}</h6>;
           })}
         </div>
 
-        <div  className="jobdone">
+        <div className="jobdone">
           <h5>pending jobs</h5>
           {todos.map((item, index) => {
             if (!item.status) {
-              return <h6 key={index}>- {item.text}</h6>
+              return <h6 key={index}>- {item.text}</h6>;
             }
             return null;
           })}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default App;
